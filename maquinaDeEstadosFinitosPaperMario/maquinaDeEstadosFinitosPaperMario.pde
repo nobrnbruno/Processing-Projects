@@ -1,3 +1,6 @@
+int tempoParado = 0;
+int tempoMartelando = 0;
+
 //Estados Possíveis
 final int PARADO = 0;
 final int MARTELANDO = 1;
@@ -23,22 +26,27 @@ void draw() {
 }
 
 //Mostra Imagens
-void mostraMario(int estado){
+void mostraMario(int estado) {
   background(255);
-  if (estado == PARADO){
+  if (estado == PARADO) {
     image(imgParado, 150, 150, 300, 300);
-  } else if (estado == MARTELANDO){
+  } else if (estado == MARTELANDO) {
     image(imgMartelando, 125, 150, 300, 300);
   }
 }
 
-//Máquina de Estados Finitos (MEF)
+//Máquina de Estados Finitos (MEF) primeira versao
 void MEF() {
-  if (keyPressed == true) {
+  if (keyPressed) {
     if (key == ' ') {
       estadoMario = MARTELANDO;
     }
-  } else {
-    estadoMario = PARADO;
+  }
+  if (estadoMario == MARTELANDO) {
+    tempoMartelando++;
+    if (tempoMartelando >= 60) {
+      tempoMartelando = 0;
+      estadoMario = PARADO;
+    }
   }
 }
